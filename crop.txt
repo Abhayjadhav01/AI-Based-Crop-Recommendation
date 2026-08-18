@@ -1,0 +1,165 @@
+Day 1–2: Setup & Dataset
+
+Install Python & Required Libraries:
+
+Download Python
+
+Install required libraries:
+
+pip install pandas numpy scikit-learn streamlit joblib
+
+
+Download Dataset:
+
+From Kaggle: Crop Recommendation Dataset
+
+Save it as Crop_recommendation.csv in your project folder
+
+? 
+Day 3–4: Train the Model
+
+Use this code to train and save the model (copy-paste ready):
+
+# train_model.py
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+import joblib
+
+# Load dataset
+data = pd.read_csv("Crop_recommendation.csv")
+X = data.drop("label", axis=1)
+y = data["label"]
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train model
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+
+# Save model
+joblib.dump(model, "crop_model.pkl")
+
+# Print accuracy
+print("Model trained. Accuracy:", model.score(X_test, y_test))
+
+
+?? Run this with:
+
+python train_model.py
+
+? 
+Day 5–6: Build the Streamlit App
+
+This is your simple working UI:
+
+# app.py
+import streamlit as st
+import numpy as np
+import joblib
+
+# Load trained model
+model = joblib.load("crop_model.pkl")
+
+st.title("?? Crop Recommendation System")
+
+# Input fields
+N = st.number_input("Nitrogen (N)")
+P = st.number_input("Phosphorus (P)")
+K = st.number_input("Potassium (K)")
+temp = st.number_input("Temperature (°C)")
+humidity = st.number_input("Humidity (%)")
+ph = st.number_input("pH value")
+rainfall = st.number_input("Rainfall (mm)")
+
+if st.button("Recommend Crop"):
+    input_data = np.array([[N, P, K, temp, humidity, ph, rainfall]])
+    prediction = model.predict(input_data)
+    st.success(f"? Recommended Crop: **{prediction[0]}**")
+
+
+?? Run the app:
+
+streamlit run app.py
+
+
+You now have a working crop recommendation system!
+
+? 
+Day 7–8: Polish and Prepare Submission
+
+Add project title, team names, and explanation in the app or a separate README.pdf
+
+Optional: Add more visuals using st.image(), st.write() etc.
+
+Optional: Add a small GIF or banner image of a farm for presentation
+
+? 
+Day 9: Test & Demo
+
+Show the app working with different inputs
+
+Prepare 3–4 screenshots for your final report or presentation
+
+Test accuracy (printed in terminal from training script)
+
+? 
+Day 10: Submit Project
+
+You’ll submit:
+
+app.py (Streamlit app)
+
+crop_model.pkl (trained model)
+
+train_model.py (training code)
+
+Crop_recommendation.csv (dataset)
+
+README.pdf or .pptx (optional report)
+
+?? Final Folder Structure
+crop-project/
+¦
++-- Crop_recommendation.csv   # Dataset
++-- train_model.py            # Model training
++-- crop_model.pkl            # Saved model
++-- app.py                    # Streamlit app
++-- README.pdf or PPT         # Optional report
+
+?? Presentation Tips (Even if You’re Not an Expert)
+
+When explaining the project:
+
+Problem: Farmers struggle to decide which crop to grow based on soil and weather.
+
+Solution: We built an AI model using data science to recommend crops.
+
+Tech Used: Python, scikit-learn, Streamlit
+
+Result: User enters data ? model recommends the best crop
+
+? TL;DR — No Time? Do This:
+
+Download dataset from Kaggle ?
+
+Use provided train_model.py ?
+
+Use ready app.py UI ?
+
+Run with Streamlit ?
+
+Submit the 4–5 files ?
+
+I can give you:
+
+?? A ZIP of all files
+
+?? A sample report or PowerPoint
+
+??? Screenshots or GIFs
+
+?? Help you present it in simple words
+
+Want me to generate the full project ZIP or sample report now?
